@@ -1,17 +1,22 @@
 # DCM-Project[PhD Study3]
 
+
 ## Step 0: 拷贝需要的静息态数据
 
 `copy_CCNP_fsaverage5.ps1` 
+`unzip_CCNP.ps1`
+
 
 ## Step : 被试筛选
 
 qc结果
 年龄性别
 
+
 ## Step : 每个网络选取1个ROI
 
 `select_ROI_fsLR32k`
+
 
 ## Step : 空间转换15个网络的ROI
 
@@ -69,8 +74,13 @@ DU15Net_fsLR10k.dscalar.nii
 
 
 ## Step : 提取时间序列
-`extract_timeseries_CCNP_mac`和`extract_timeseries_CCNP_wins.m`
-提取数据中ROI体素的时间序列，在ROI内进行体素平均，然后进行逐个时间序列的去均值和去线性漂移。
+
+`extract_timeseries_CCNP_mac`、`extract_timeseries_CCNP_wins.m`和`extract_timeseries_ABIDE.mac.m`
+提取数据中ROI体素的时间序列，然后进行逐个时间序列的去均值和去线性漂移，两个半球的ROI内进行体素平均。
+CCNP
 data/timeseries/fsaverage/<SITE>/<SUB>/
 rest1_DU15_roi_ts.mat
 rest2_DU15_roi_ts.mat
+ABIDE
+data/abide/timeseries/
+29096_DU15_network_ts.mat
