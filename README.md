@@ -84,3 +84,31 @@ rest2_DU15_roi_ts.mat
 ABIDE
 data/abide/timeseries/
 29096_DU15_network_ts.mat
+
+
+## Step : rDCM 批处理
+
+基于 **TAPAS toolbox**的有效连接估计，所有脚本均采用 **classic rDCM（无 sparsity 约束）**，并显式指定采样间隔（TR）。
+
+
+### 1️⃣ `calculate_rDCM_ABIDE.m`
+
+- 每个被试一个时间序列文件，根据 `siteName` 自动匹配 TR
+
+
+### 2️⃣ `calculate_rDCM_CCNP.m`
+
+- 每个被试可包含多个 run（如 rest1 / rest2），CKG：2.5 s  ，PEK：2.0 s
+
+### 输出结构示例
+
+rDCM/
+├── ABIDE/
+│   └── sub-XXXX_rDCM.mat
+├── CKG/
+│   └── sub-XXXX_ses01/
+│       └── sub-XXXX_rest1_rDCM.mat
+└── PEK/
+    └── sub-XXXX_ses01/
+        └── sub-XXXX_rest1_rDCM.mat
+
