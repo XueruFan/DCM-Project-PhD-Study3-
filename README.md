@@ -7,12 +7,6 @@
 `unzip_CCNP.ps1`
 
 
-## Step : 被试筛选
-
-qc结果
-年龄性别
-
-
 ## Step : 每个网络选取1个ROI
 
 `select_ROI_fsLR32k`
@@ -93,6 +87,8 @@ data/abide/timeseries/
 `sum_SFC_embedding_ABIDE.m`和`sum_SFC_embedding_CCNP.m`汇总所有被试的embedding值
 
 `select_ccnpckg_participant.R`和`select_ccnpckg_participant.R`筛选出meanfd小于0.5的被试数据
+
+`predict_clusters_abide.py`使用asd研究中的分类器预测abide中剩余男性asd（大于等于13岁）的亚型
 
 `group_analysis_SFC_embedding_ABIDE.R`描述统计绘图embedding值
 
