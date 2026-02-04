@@ -90,7 +90,113 @@ data/abide/timeseries/
 
 `predict_clusters_abide.py`使用asd研究中的分类器预测abide中剩余男性asd（大于等于13岁）的亚型
 
-`group_analysis_SFC_embedding_ABIDE.R`描述统计绘图embedding值
+
+### ABIDE 功能连接嵌入的描述性分析
+`group_analysis_SFC_embedding_ABIDE.R`
+整合了多步嵌入计算结果、被试人口学信息、站点信息以及基于机器学习的 ASD 亚型预测结果（仅包含男性被试），并生成可直接用于论文排版的高分辨率图像。
+
+所有分析结果统一输出至以下目录：
+/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE/
+
+其中，表格结果与图像结果分别存放如下。
+
+1. 人口学描述统计（按亚型）  
+   文件名：  
+   sfc_demo.csv  
+
+   内容说明：  
+   各亚型被试的样本量、平均年龄及年龄标准差。
+
+2. 功能网络层面的嵌入描述统计  
+   文件名：  
+   sfc_network.csv  
+
+   内容说明：  
+   不同亚型在各功能网络上的 embedding 均值、标准差、中位数及四分位距。
+
+3. 嵌入步骤层面的描述统计  
+   文件名：  
+   sfc_step.csv  
+
+   内容说明：  
+   不同亚型在各嵌入步骤上的 embedding 均值与标准差。
+
+所有图像文件统一保存在以下子目录：
+/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE/plot/
+
+当前版本生成的主要图像为：
+功能网络 × 嵌入步骤的平均 embedding 热图  
+   文件名：  SFC_ABIDE_Heatmap.png  
+   图像说明：  
+   该图展示了三组被试（TD、ASD-L、ASD-H）在不同功能网络和嵌入步骤上的平均 embedding 分布情况，功能网络按系统组织排序，用于博士论文结果部分的核心图像展示。
+
+
+### ABIDE 功能连接嵌入的组间对比分析（TD 参照）
+
+`group_analysis_SFC_embedding_ABIDE_contrast.R`
+
+该脚本在前期 SFC embedding 计算与描述性分析的基础上，进一步对 ABIDE 数据集中不同临床分组相对于 TD 组的 embedding 差异进行系统性统计建模与可视化分析。分析整合了多步嵌入结果、被试人口学信息、扫描站点信息以及基于机器学习预测的 ASD 亚型标签，仅纳入男性被试，以避免性别混杂效应。
+
+所有分析结果统一输出至以下目录：/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE/
+
+其中，统计结果文件与图像结果分别存放如下。
+
+---
+
+## 1. 组间对比统计结果（Network × Step）
+
+**文件名：**
+
+sfc_group_constrast.csv
+
+
+**内容说明：**
+
+该文件包含在每一个功能网络 × 嵌入步骤组合上进行的线性模型组间对比结果。模型在控制年龄（AGE_AT_SCAN）和扫描站点（site）后，分别估计以下三类对比：
+
+- ASD（合并组） vs TD  
+- ASD-L vs TD  
+- ASD-H vs TD  
+
+输出字段包括对比的估计值（estimate）、标准误、t 值、原始 p 值等统计量，并额外标记是否达到未经多重校正的显著性水平（p < 0.05），用于后续结果展示与探索性解释。
+
+---
+
+## 2. 功能网络 × 嵌入步骤的组间差异热图
+
+**图像输出目录：**
+
+/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE/plot/
+
+
+**主要图像文件：**
+
+SFC_ABIDE_subtypes_contrasts.png
+
+
+**图像说明：**
+
+该图以热图形式展示不同功能网络和嵌入步骤上 embedding 的组间差异估计值（ΔEmbedding），按功能系统组织顺序排列网络维度，并在三个并列面板中分别呈现：
+
+- ASD vs TD  
+- ASD-L vs TD  
+- ASD-H vs TD  
+
+颜色表示回归模型中组别效应的方向与大小，黑色空心圆标记表示在对应 Network × Step 位置达到原始显著性水平（p < 0.05）的对比结果。图像采用透明背景与高分辨率设置，可直接用于博士论文结果章节的核心图像展示。
+
+---
+
+## 3. 方法学要点说明
+
+- 所有组间对比均基于线性模型（lm），并通过 `emmeans` 计算处理对照（TD）参照的组间对比。  
+- ASD 合并组分析与亚型分析在同一数据框架下独立运行，确保统计结果的可比性。  
+- 嵌入步骤（Step）与功能网络（Network）均作为分组单元逐一建模，不引入跨步骤或跨网络的平均化假设。  
+- 当前结果未进行多重比较校正，显著性标记仅用于结果结构与空间分布的探索性展示，相关解释需在论文中谨慎限定。
+
+
+
+
+
 
 # 研究四 rDCM分析
 
