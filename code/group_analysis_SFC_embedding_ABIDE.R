@@ -34,7 +34,7 @@ demo_path     <- "/Volumes/Zuolab_XRF/supplement/abide_demo.xlsx"
 site_dir      <- "/Volumes/Zuolab_XRF/data/abide/sublist"
 cluster_path  <- "/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE/abide_cluster_predictions_male.csv"
 
-out_root <- "/Users/xuerufan/DCM-Project-PhD-Study3-/output/ABIDE"
+out_root <- "/Volumes/Zuolab_XRF/output/abide/sfc"
 plot_dir <- file.path(out_root, "plot")
 
 dir.create(out_root, showWarnings = FALSE, recursive = TRUE)
@@ -144,6 +144,10 @@ data_all <- embedding_long %>%
   mutate(
     Embedding = as.numeric(Embedding)
   )
+
+participant_for_analysis <- data.frame(unique(data_all$Subject))
+write_csv(participant_for_analysis, file.path(out_root, "sfc_participant_for_analysis.csv"),
+          col_names = F)
 
 # ============================================================
 # 7. Descriptive statistics (Table 1 by SUBTYPE)
